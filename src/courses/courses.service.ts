@@ -1,24 +1,24 @@
 
-import { Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { Course } from './course.entity.js'
 
 @Injectable()
 export class CoursesService {
-    private courses: Course[] = [
-        {
-            id: 1,
-            name: 'NestJS',
-            description: 'Curso sobre fundamentos do framework NestJS',
-            tags: ['node.js', 'nestjs', 'javascript', 'typescript'],
-        },
-    ]
+    private courses: Course[] = []
 
     findAll() {
         return this.courses
     }
 
     findOne(id: number) {
-        return this.courses.find(course => course.id === id)
+        const course =  this.courses.find(course => course.id === id)
+        if(!course) {
+            throw new HttpException(`Course with id ${id} not found`, HttpStatus.NOT_FOUND)
+        }
+
+        console.log(course)
+
+        return course
     }
 
     create(createCourseDTO: any) {
@@ -26,20 +26,20 @@ export class CoursesService {
     }
 
     update(id: number, updateCourseDTO: any) {
-        const existingCourse = this.findOne(id)
-        if (existingCourse) {
-            const index = this.courses.findIndex(course => course.id === id)
-            this.courses[index] = {
+        console.log(id)
+        console.log(typeof id)
+
+        this.findOne(id)
+        const index = this.courses.findIndex(course => course.id === id)
+        this.courses[index] = {
             id,
             ...updateCourseDTO,
-            }
         }
     }
 
     delete(id: number) {
+        this.findOne(id)
         const index = this.courses.findIndex(course => course.id === id)
-        if (index >= 0) {
-            this.courses.splice(index, 1)
-        }
+        this.courses.splice(index, 1)
     }
 }

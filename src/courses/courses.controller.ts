@@ -1,6 +1,7 @@
 
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Put, Post } from '@nestjs/common'
 import { CoursesService } from './courses.service.js'
+import type { Course } from './course.entity.js'
 
 @Controller('/courses')
 export class CoursesController {
@@ -24,13 +25,13 @@ export class CoursesController {
     }
 
     @Put(':id')
-    update(@Param('id') id, @Body() body) {
+    update(@Param('id') id: number, @Body() body: Course) {
+        console.log(typeof id)
         return this.coursesService.update(+id, body)
     }
 
-    @HttpCode(HttpStatus.NO_CONTENT)
     @Delete(':id')
-    delete(@Param('id') id) {
+    delete(@Param('id') id: number) {
         return this.coursesService.delete(+id)
     }
 
