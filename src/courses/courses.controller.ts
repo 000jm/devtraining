@@ -11,8 +11,8 @@ export class CoursesController {
 
     @HttpCode(200)
     @Get(':id')
-    findOne(@Param() { id }: { id: number }) {
-    // findOne(@Param('id') id: number) {
+    // findOne(@Param() params: {id: number}) {
+    findOne(@Param('id') id: number) {
         if(id < 10) {
             return `id: 00${id}`
         }
