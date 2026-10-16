@@ -26,7 +26,6 @@ export class CoursesController {
 
     @Put(':id')
     update(@Param('id') id: number, @Body() body: Course) {
-        console.log(typeof id)
         return this.coursesService.update(+id, body)
     }
 

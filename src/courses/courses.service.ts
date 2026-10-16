@@ -16,8 +16,6 @@ export class CoursesService {
             throw new HttpException(`Course with id ${id} not found`, HttpStatus.NOT_FOUND)
         }
 
-        console.log(course)
-
         return course
     }
 
@@ -26,9 +24,6 @@ export class CoursesService {
     }
 
     update(id: number, updateCourseDTO: any) {
-        console.log(id)
-        console.log(typeof id)
-
         this.findOne(id)
         const index = this.courses.findIndex(course => course.id === id)
         this.courses[index] = {
