@@ -1,7 +1,8 @@
 
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Put, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Put, Post, BadRequestException } from '@nestjs/common'
 import { CoursesService } from './courses.service.js'
-import type { Course } from './course.entity.js'
+import { CreateCourseDTO } from './dto/create-course.dto.js'
+import { UpdateCourseDTO } from './dto/update-course.dto.js'
 
 @Controller('/courses')
 export class CoursesController {
@@ -20,13 +21,16 @@ export class CoursesController {
     }
 
     @Post('/')
-    create(@Body() body: {}) {
-        return this.coursesService.create(body)
+    create(@Body() createCourseDTO: CreateCourseDTO) {
+        if(!createCourseDTO) {
+            throw new BadRequestException(`Body data not provided or invalid`)
+        }
+        return this.coursesService.create(createCourseDTO)
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() body: Course) {
-        return this.coursesService.update(+id, body)
+    update(@Param('id') id: number, @Body() updateCourseDTO: UpdateCourseDTO) {
+        return this.coursesService.update(+id, updateCourseDTO)
     }
 
     @Delete(':id')
