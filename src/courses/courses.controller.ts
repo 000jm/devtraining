@@ -17,7 +17,7 @@ export class CoursesController {
     @Get(':id')
     // findOne(@Param() params: {id: number}) {
     findOne(@Param('id') id: number) {
-        return this.coursesService.findOne(+id)
+        return this.coursesService.findOne(id)
     }
 
     @Post('/')
@@ -25,17 +25,18 @@ export class CoursesController {
         if(!createCourseDTO) {
             throw new BadRequestException(`Body data not provided or invalid`)
         }
+
         return this.coursesService.create(createCourseDTO)
     }
 
     @Put(':id')
     update(@Param('id') id: number, @Body() updateCourseDTO: UpdateCourseDTO) {
-        return this.coursesService.update(+id, updateCourseDTO)
+        return this.coursesService.update(id, updateCourseDTO)
     }
 
     @Delete(':id')
     delete(@Param('id') id: number) {
-        return this.coursesService.delete(+id)
+        return this.coursesService.delete(id)
     }
 
 }

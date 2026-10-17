@@ -20,7 +20,13 @@ export class CoursesService {
     }
 
     create(createCourseDTO: any) {
-        this.courses.push(createCourseDTO)
+        const id = this.courses.findLastIndex(course => course) + 1
+        if(id === 0) {
+            this.courses.push({ id: + 1, ...createCourseDTO })
+            return { id: 1, ...createCourseDTO }
+        }
+        this.courses.push({ id: id + 1, ...createCourseDTO })
+        return { id: id + 1, ...createCourseDTO }
     }
 
     update(id: number, updateCourseDTO: any) {
@@ -30,6 +36,8 @@ export class CoursesService {
             id,
             ...updateCourseDTO,
         }
+
+        return { id, ...updateCourseDTO }
     }
 
     delete(id: number) {
