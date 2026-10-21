@@ -13,7 +13,7 @@ export class CoursesService {
     ) {}
 
     findAll() {
-        return this.courses
+        return this.coursesRepository.find()
     }
 
     findOne(id: number) {
