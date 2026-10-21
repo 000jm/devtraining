@@ -45,4 +45,14 @@ export class CoursesService {
         const index = this.courses.findIndex(course => course.id === id)
         this.courses.splice(index, 1)
     }
+
+    _get(id: number) {
+        const course = this.coursesRepository.findOneBy({ id })
+        if(!course) {
+            throw new HttpException(`Course with id ${id} not found`, HttpStatus.NOT_FOUND)
+        }
+
+        return course
+    }
+
 }
