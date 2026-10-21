@@ -3,6 +3,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { Course } from './entities/course.entity.js'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { CreateCourseDTO } from './dto/create-course.dto.js'
+import { UpdateCourseDTO } from './dto/update-course.dto.js'
 
 @Injectable()
 export class CoursesService {
@@ -20,21 +22,22 @@ export class CoursesService {
         return this._get(id)
     }
 
-    async create(createCourseDTO: any) {
+    async create(createCourseDTO: CreateCourseDTO) {
         const course = this.coursesRepository.create(createCourseDTO)
-        
+
         return this.coursesRepository.save(course)
     }
 
-    update(id: number, updateCourseDTO: any) {
-        this.findOne(id)
-        const index = this.courses.findIndex(course => course.id === id)
-        this.courses[index] = {
-            id,
+    async update(id: number, updateCourseDTO: UpdateCourseDTO) {
+        const course = await this.coursesRepository.preload({
             ...updateCourseDTO,
+            id
+        })
+        if(!course) {
+            throw new HttpException(`Course with id ${id} not found`, HttpStatus.NOT_FOUND)
         }
-
-        return { id, ...updateCourseDTO }
+        
+        return this.coursesRepository.save(course)
     }
 
     delete(id: number) {
