@@ -12,23 +12,18 @@ export class CoursesService {
         private readonly coursesRepository: Repository<Course>
     ) {}
 
-    findAll() {
+    async findAll() {
         return this.coursesRepository.find()
     }
 
-    findOne(id: number) {
+    async findOne(id: number) {
         return this._get(id)
     }
 
     create(createCourseDTO: any) {
-        const id = this.courses.findLastIndex(course => course) + 1
-        if(id === 0) {
-            this.courses.push({ id: + 1, ...createCourseDTO })
-            return { id: 1, ...createCourseDTO }
-        }
-        this.courses.push({ id: id + 1, ...createCourseDTO })
-        
-        return { id: id + 1, ...createCourseDTO }
+        this.coursesRepository.create(createCourseDTO)
+
+        return { ...createCourseDTO }
     }
 
     update(id: number, updateCourseDTO: any) {
@@ -48,8 +43,9 @@ export class CoursesService {
         this.courses.splice(index, 1)
     }
 
-    _get(id: number) {
-        const course = this.coursesRepository.findOneBy({ id })
+    async _get(id: number) {
+        // const course = await this.coursesRepository.findOneBy({ id })
+        const course = await this.coursesRepository.findOne({ where: { id } })
         if(!course) {
             throw new HttpException(`Course with id ${id} not found`, HttpStatus.NOT_FOUND)
         }
