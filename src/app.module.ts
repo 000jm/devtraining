@@ -4,11 +4,12 @@ import { createObserveModule } from '@nestjs/observe'
 import { AppController } from './app.controller.js'
 import { AppService } from './app.service.js'
 import { CoursesModule } from './courses/courses.module.js'
+import { DatabaseModule } from './database/database.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule()
 
 @Module({
-  imports: [CoursesModule],
+  imports: [CoursesModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
