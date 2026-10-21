@@ -1,9 +1,16 @@
 
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { Course } from './entities/course.entity.js'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
 @Injectable()
 export class CoursesService {
+
+    constructor(
+        @InjectRepository(Course)
+        private readonly coursesRepository: Repository<Course>
+    ) {}
 
     findAll() {
         return this.courses
