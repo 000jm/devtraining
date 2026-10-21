@@ -5,13 +5,16 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { CreateCourseDTO } from './dto/create-course.dto.js'
 import { UpdateCourseDTO } from './dto/update-course.dto.js'
+import { Tag } from './entities/tags.entity.js'
 
 @Injectable()
 export class CoursesService {
 
     constructor(
         @InjectRepository(Course)
-        private readonly coursesRepository: Repository<Course>
+        private readonly coursesRepository: Repository<Course>,
+        @InjectRepository(Tag)
+        private readonly tagsRepository: Repository<Tag>
     ) {}
 
     async findAll() {
