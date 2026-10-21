@@ -40,10 +40,9 @@ export class CoursesService {
         return this.coursesRepository.save(course)
     }
 
-    delete(id: number) {
-        this.findOne(id)
-        const index = this.courses.findIndex(course => course.id === id)
-        this.courses.splice(index, 1)
+    async delete(id: number) {
+        await this._get(id)
+        await this.coursesRepository.delete({ id })
     }
 
     async _get(id: number) {
