@@ -46,7 +46,7 @@ export class CoursesService {
         await this.coursesRepository.delete({ id })
     }
 
-    async _get(id: number) {
+    private async _get(id: number) {
         // const course = await this.coursesRepository.findOneBy({ id })
         const course = await this.coursesRepository.findOne({ where: { id } })
         if(!course) {
