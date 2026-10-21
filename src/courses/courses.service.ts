@@ -4,7 +4,6 @@ import { Course } from './entities/course.entity.js'
 
 @Injectable()
 export class CoursesService {
-    private courses: Course[] = []
 
     findAll() {
         return this.courses
