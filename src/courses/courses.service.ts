@@ -17,12 +17,7 @@ export class CoursesService {
     }
 
     findOne(id: number) {
-        const course =  this.courses.find(course => course.id === id)
-        if(!course) {
-            throw new HttpException(`Course with id ${id} not found`, HttpStatus.NOT_FOUND)
-        }
-
-        return course
+        return this._get(id)
     }
 
     create(createCourseDTO: any) {
