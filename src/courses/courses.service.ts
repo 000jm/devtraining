@@ -22,13 +22,13 @@ export class CoursesService {
         return this._get(id)
     }
 
-    async create(createCourseDTO: CreateCourseDTO) {
+    async create(createCourseDTO: any) {
         const course = this.coursesRepository.create(createCourseDTO)
 
         return this.coursesRepository.save(course)
     }
 
-    async update(id: number, updateCourseDTO: UpdateCourseDTO) {
+    async update(id: number, updateCourseDTO: any) {
         const course = await this.coursesRepository.preload({
             ...updateCourseDTO,
             id
