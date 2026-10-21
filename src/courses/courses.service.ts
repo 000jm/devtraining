@@ -20,10 +20,10 @@ export class CoursesService {
         return this._get(id)
     }
 
-    create(createCourseDTO: any) {
-        this.coursesRepository.create(createCourseDTO)
-
-        return { ...createCourseDTO }
+    async create(createCourseDTO: any) {
+        const course = this.coursesRepository.create(createCourseDTO)
+        
+        return this.coursesRepository.save(course)
     }
 
     update(id: number, updateCourseDTO: any) {
