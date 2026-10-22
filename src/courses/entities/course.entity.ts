@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto"
 
 @Entity('courses')
 export class Course {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: string
 
     @Column()
@@ -22,13 +22,5 @@ export class Course {
 
     @CreateDateColumn({ type: 'timestamp' })
     created_at: Date
-
-    @BeforeInsert()
-    generateId() {
-        if(this.id) {
-            return
-        }
-        this.id  = randomUUID()
-    }
 
 }
