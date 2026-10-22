@@ -25,7 +25,7 @@ export class CoursesService {
         })
     }
 
-    async findOne(id: number) {
+    async findOne(id: string) {
         return this._get(id)
     }
 
@@ -41,8 +41,8 @@ export class CoursesService {
         return this.coursesRepository.save(course)
     }
 
-    async update(id: number, updateCourseDTO: UpdateCourseDTO) {
-        const tags = updateCourseDTO.tags && await Promise.all(
+    async update(id: string, updateCourseDTO: UpdateCourseDTO) {
+    const tags = updateCourseDTO.tags && await Promise.all(
             updateCourseDTO.tags?.map(name => this.preloadTagByName(name))
         )
         const course = await this.coursesRepository.preload({
@@ -57,12 +57,12 @@ export class CoursesService {
         return this.coursesRepository.save(course)
     }
 
-    async delete(id: number) {
-        await this._get(id)
+    async delete(id: string) {
+    await this._get(id)
         await this.coursesRepository.delete({ id })
     }
 
-    private async _get(id: number) {
+    private async _get(id: string) {
         // const course = await this.coursesRepository.findOneBy({ id })
         const course = await this.coursesRepository.findOne({
             where: { id },
