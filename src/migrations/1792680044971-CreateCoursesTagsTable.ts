@@ -11,11 +11,8 @@ export class CreateCoursesTagsTable1792680044971 implements MigrationInterface {
                     name: 'id',
                     type: 'uuid',
                     isPrimary: true,
-                    generationStrategy: 'uuid'
-                },
-                {
-                    name: 'name',
-                    type: 'varchar'
+                    generationStrategy: 'uuid',
+                    default: 'uuid_generate_v4()'
                 },
                 {
                     name: 'created_at',
