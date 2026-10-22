@@ -5,7 +5,7 @@ export class CreateCoursesTagsTable1792680044971 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
         await queryRunner.createTable(new Table({
-            name: 'course_tags',
+            name: 'courses_tags',
             columns: [
                 {
                     name: 'id',
@@ -24,7 +24,7 @@ export class CreateCoursesTagsTable1792680044971 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('course_tags')
+        await queryRunner.dropTable('courses_tags')
     }
 
 }
