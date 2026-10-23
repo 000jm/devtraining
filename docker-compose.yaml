@@ -4,7 +4,7 @@ version: '3.1'
 services:
   db:
     build: .
-    container_name: devtraining-db
+    container_name: courses-api-db
     restart: always
     ports:
       - "5433:5432"
@@ -12,4 +12,4 @@ services:
       - .docker/dbdata:/var/lib/postgresql
     environment:
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=devtraining
+      - POSTGRES_DB=courses-api-db
